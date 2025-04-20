@@ -119,7 +119,7 @@ class UnsupervisedWraper:
         self.device = device
         self.net = LELAGNN()
         self.net.to(self.device)
-        checkpoint = torch.load(checkpoint_path, map_location=torch.device(self.device))
+        checkpoint = torch.load(checkpoint_path, map_location=torch.device(self.device), weights_only=False)
         self.net.load_state_dict(checkpoint['model_state_dict'])
         self.net.eval()
         self.name = checkpoint_path
@@ -247,7 +247,8 @@ class SemisupervisedHelper:
         )
         self.checkpoint = torch.load(
             checkpoint_path,
-            map_location=torch.device(self.device)
+            map_location=torch.device(self.device),
+            weights_only=False,
         )
 
     def initialize_net(self):
